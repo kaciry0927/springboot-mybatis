@@ -1,4 +1,4 @@
-package com.kaciry.dao;
+package com.kaciry.mapper;
 
 import com.kaciry.entity.Student;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface StudentDao {
+public interface StudentMapper {
     /**
      * @param id sno
      * @return Student
