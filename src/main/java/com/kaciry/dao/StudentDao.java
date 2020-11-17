@@ -16,5 +16,5 @@ public interface StudentDao {
      * @param id sno
      * @return Student
      */
-    Student queryById(Integer id);
+    Student queryById(String id);
 }
