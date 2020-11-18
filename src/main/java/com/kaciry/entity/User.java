@@ -7,16 +7,15 @@ import lombok.ToString;
 
 /**
  * @author kaciry
- * @date 2020/11/17 16:58
- * @description 学生实体
+ * @date 2020/11/18 11:20
+ * @description mybatis表
  */
 @Data
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
-    private String id;
-    private String sname;
-    private String sage;
-    private String ssex;
+public class User {
+    private Integer id;
+    private String name;
+    private String sex;
 }

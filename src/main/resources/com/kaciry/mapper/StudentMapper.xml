@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 写的是Dao接口的路径 -->
 <mapper namespace="com.kaciry.mapper.StudentMapper">
+    <!-- <resultMap> 里面放的是表里的字段和namespace 属性的映射-->
+    <!-- id是接口的名; type是实体类的路径-->
+    <resultMap id="StudentMap" type="com.kaciry.entity.Student">
 
-    <resultMap type="com.kaciry.entity.Student" id="StudentMap">
-        <result property="sid" column="sno" jdbcType="VARCHAR"/>
+        <!-- <id>是放主键的; property 是实体类中的属性名; column是数据库的sno -->
+        <id property="id" column="sno" jdbcType="VARCHAR"/>
         <result property="sname" column="sname" jdbcType="VARCHAR"/>
         <result property="sage" column="sage" jdbcType="VARCHAR"/>
         <result property="ssex" column="ssex" jdbcType="VARCHAR"/>
+        <!--若是联查，则需要改动-->
+        <!--       <association property="ClassName" javaType="com.kaciry.entity.entityName">-->
+        <!--            property here
+        <!-        </association>-->
     </resultMap>
+    <!-- 总结:接到的类型还是com. fh. entity . Branch 它查询到的column 的值装到了property内 -->
+
 
     <!--查询单个-->
-    <select id="queryById" resultType="com.kaciry.entity.Student">
-        select sno, sname, sage,ssex from STUDENT where sno = #{sno}
-    </select>
+    <!-- id是接口的名; resultMap返回的是<resultMap> 里面配置的，说白了与<resultMap> 的id保持一致-->
+        <select id="queryById" parameterType="com.kaciry.entity.Student" resultType="com.kaciry.entity.Student">
+            select sno, sname, sage,ssex from STUDENT where sno = #{sno}
+        </select>
+
+    <!--查询全部-->
+        <select id="findAll" parameterType="com.kaciry.entity.Student" resultType="com.kaciry.entity.Student">
+            select sno, sname, sage,ssex from STUDENT
+        </select>
 
 </mapper>

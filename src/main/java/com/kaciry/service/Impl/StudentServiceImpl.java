@@ -1,10 +1,12 @@
 package com.kaciry.service.Impl;
 
-import com.kaciry.mapper.StudentMapper;
 import com.kaciry.entity.Student;
+import com.kaciry.mapper.StudentMapper;
 import com.kaciry.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author kaciry
@@ -19,5 +21,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student queryById(String sno) {
         return this.studentMapper.queryById(sno);
+    }
+
+    @Override
+    public List<Student> findAll() {
+        return studentMapper.findAll();
     }
 }
