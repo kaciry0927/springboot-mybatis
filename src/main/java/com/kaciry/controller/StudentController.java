@@ -4,8 +4,7 @@ import com.kaciry.entity.Student;
 import com.kaciry.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author kaciry
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @description
  */
 @Controller
-@RequestMapping("student")
+@RequestMapping("/student")
 public class StudentController {
     /**
      * 服务对象
@@ -24,12 +23,16 @@ public class StudentController {
     /**
      * 通过主键查询单条数据
      *
-     * @param id 主键
+     * @param sno 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public Student selectOne(String id) {
-        System.out.println(id);
-        return this.studentService.queryById(id);
+    @GetMapping("queryById/{sno}")
+    @ResponseBody
+    public Student selectOne(@PathVariable String sno) {
+        System.out.println("Args sno is : " + sno);
+        Student student = studentService.queryById(sno);
+        System.out.println("Result is : " + student);
+        return student;
     }
+
 }

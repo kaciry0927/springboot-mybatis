@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StudentMapper {
     /**
-     * @param id sno
+     * @param sno sno
      * @return Student
      */
-    Student queryById(String id);
+    Student queryById(String sno);
 }

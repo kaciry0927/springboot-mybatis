@@ -15,8 +15,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student {
-    private String id;
-    private String name;
-    private String age;
-    private String sex;
+    private String sno;
+    private String sname;
+    private String sage;
+    private String ssex;
 }

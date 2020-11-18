@@ -12,8 +12,8 @@ public interface StudentService {
      * @author kaciry
      * @description
      * @date  2020/11/17 17:04
-     * @param id sno
+     * @param sno sno
      * @return com.kaciry.entity.Student
     **/
-    Student queryById(String id);
+    Student queryById(String sno);
 }

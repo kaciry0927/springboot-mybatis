@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Kaciry
  */
 @SpringBootApplication
-@MapperScan("com.kaciry")
+@MapperScan("com.kaciry.mapper")
 public class SpringBootMybatisApplication {
 
     public static void main(String[] args) {

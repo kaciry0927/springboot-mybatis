@@ -17,7 +17,7 @@ public class StudentServiceImpl implements StudentService {
     private StudentMapper studentMapper;
 
     @Override
-    public Student queryById(String id) {
-        return this.studentMapper.queryById(id);
+    public Student queryById(String sno) {
+        return this.studentMapper.queryById(sno);
     }
 }
