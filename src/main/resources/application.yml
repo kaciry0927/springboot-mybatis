@@ -1,0 +1,16 @@
+spring:
+  #模版配置
+  thymeleaf:
+    #避免修改模版后还要重启
+    cache: false
+    #模版路径，默认为templates（可忽略）
+    prefix: classpath:/templates/
+    #检查模版位置（可忽略）
+    check-template-location: true
+    #模版后缀，默认html（可忽略）
+    suffix: .html
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    #模版模式
+    mode: HTML

@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--namespace 写的是Dao接口的路径 -->
 <mapper namespace="com.kaciry.mapper.UserMapper">
+
+    <sql id="allColumns">id,name,sex</sql>
 
     <resultMap id="user" type="com.kaciry.entity.User">
         <id property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="sex" column="sex" jdbcType="VARCHAR"/>
     </resultMap>
-
+    <!--根据id查询用户信息-->
     <select id="queryUserById" parameterType="com.kaciry.entity.User" resultType="com.kaciry.entity.User">
         select id,name,sex from mybatis where id= #{id}
     </select>
-
+    <!--查询所有用户信息-->
     <select id="findAll" parameterType="com.kaciry.entity.User" resultType="com.kaciry.entity.User">
-        select id,name,sex from mybatis
+        select
+        <include refid="allColumns"/>
+        from mybatis
     </select>
-
+    <!--添加用户信息-->
     <insert id="insertUserInfo" parameterType="com.kaciry.entity.User">
         insert into mybatis(name,sex) values (#{name},#{sex})
     </insert>
-
+    <!--根据id删除用户信息-->
     <delete id="deleteUserById" parameterType="com.kaciry.entity.User">
         delete mybatis where id = #{id}
     </delete>
-
+    <!--根据id更改用户名称-->
     <update id="updateUserInfo" parameterType="com.kaciry.entity.User">
         update mybatis set name = #{name} where id = #{id}
     </update>

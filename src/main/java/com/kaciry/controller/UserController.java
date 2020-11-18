@@ -3,12 +3,7 @@ package com.kaciry.controller;
 import com.kaciry.entity.User;
 import com.kaciry.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author kaciry
@@ -30,10 +25,12 @@ public class UserController {
         return userService.queryUserById(id);
     }
 
-    @GetMapping("findAll")
+    @PostMapping("findAll")
     @ResponseBody
-    public List<User> findAll() {
-        return userService.findAll();
+    public String findAll() {
+        String res = userService.findAll().toString();
+        System.out.println(res);
+        return res;
     }
 
     @GetMapping("insertUser/{name}/{sex}")
