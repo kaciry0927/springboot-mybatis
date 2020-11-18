@@ -4,6 +4,7 @@ import com.kaciry.entity.User;
 import com.kaciry.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author kaciry
@@ -27,10 +28,10 @@ public class UserController {
 
     @PostMapping("findAll")
     @ResponseBody
-    public String findAll() {
-        String res = userService.findAll().toString();
-        System.out.println(res);
-        return res;
+    public ModelAndView findAll() {
+        ModelAndView mav = new ModelAndView("index");
+        mav.addObject("list", userService.findAll());
+        return mav;
     }
 
     @GetMapping("insertUser/{name}/{sex}")

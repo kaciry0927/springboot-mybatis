@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,9 +8,10 @@
 </head>
 <body>
 <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">MyBatis</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -30,32 +31,38 @@
         </div>
     </nav>
     <div style="height: 3px"></div>
-<div class="container">
-    <div class="findAll">
-        <div class="req-findAll">
-            <form>
-                <div class="form-group row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Find All Users</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control-plaintext" id="staticEmail" value="Not allowed args here." readonly>
+    <div class="container">
+        <div class="findAll">
+            <div class="req-findAll">
+                <form th:action="@{/user/findAll}" method="post">
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label">Find All Users</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control-plaintext" id="staticEmail"
+                                   value="Not allowed args here." readonly>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary mb-2">Query All</button>
+                        </div>
                     </div>
-                    <div class="col-sm-2">
-                        <button onclick="findAll()" class="btn btn-primary mb-2">Query All</button>
-                    </div>
+                </form>
+            </div>
+            <div class="resp-findAll" id="respFindAll">
+                <div th:each="item : ${list}">
+                    <p><a th:text="${{item.id}}"></a></p>
+                    <p><a th:text="${{item.name}}"></a></p>
+                    <p><a th:text="${{item.sex}}"></a></p>
+                    <hr>
                 </div>
-            </form>
-        </div>
-        <div class="resp-findAll" id="respFindAll" style="height: 50px;width: 300px">
+            </div>
 
         </div>
 
     </div>
-
-</div>
 </div>
 
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
+<script src="/static/javascirpt/jquery.min.js"></script>
 <script src="/static/javascirpt/crud.js"></script>
 </body>
 </html>

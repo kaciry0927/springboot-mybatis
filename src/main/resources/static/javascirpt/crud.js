@@ -10,8 +10,7 @@ function findAll() {
         },
         success: function (result) {
             alert(1);
-            document.getElementById("respFindAll").innerText = result;
-            return false;
+            // document.getElementById("respFindAll").innerText = result;
         }
     });
 
