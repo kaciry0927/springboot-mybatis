@@ -21,13 +21,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User queryUserById(Integer id) {
-        return userMapper.queryUserById(id);
+    public User queryUserById(String name) {
+        if (name != null) {
+            User user = userMapper.queryUserById(name);
+            return user == null ? new User(0, "NULL", "NULL") : user;
+        } else {
+            return new User(0, "NULL", "NULL");
+        }
+
     }
 
     @Override
     public boolean insertUserInfo(String name, String sex) {
-        return userMapper.insertUserInfo(name,sex);
+        return userMapper.insertUserInfo(name, sex);
     }
 
     @Override
@@ -42,6 +48,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateUserInfo(Integer id, String name) {
-        return userMapper.updateUserInfo(id,name);
+        return userMapper.updateUserInfo(id, name);
     }
 }

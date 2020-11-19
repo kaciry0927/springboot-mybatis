@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.kaciry</groupId>
     <artifactId>springboot-mybatis</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.1</version>
     <name>springboot-mybatis</name>
     <description>project for Spring Boot and mybatis</description>
 

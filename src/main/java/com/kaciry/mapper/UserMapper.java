@@ -15,13 +15,13 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     /**
-     * @param id id
+     * @param name name
      * @return com.kaciry.entity.User
      * @author kaciry
      * @description
      * @date 2020/11/18 11:40
      **/
-    User queryUserById(Integer id);
+    User queryUserById(String name);
 
     /**
      * @author kaciry

@@ -1,68 +1,192 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>SpringBoot-Myabtis</title>
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+    <title>SpringBoot-Mybatis</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
 </head>
 <body>
-<div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">MyBatis</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<header class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="#">MyBatis</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
-    <div style="height: 3px"></div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</header>
+<div class="container-fluid">
     <div class="container">
-        <div class="findAll">
+        <div class="mt-4"></div>
+        <button type="button" class="btn btn-block btn-lg btn-primary mb-3" onclick="clearForm()">CLEAN FORM</button>
+        <!--        <a type="button" class="btn btn-block btn-lg btn-primary" th:href="@{/}">Clean Form</a>-->
+        <!--        <a type="button" class="btn btn-block btn-lg btn-primary" th:href="@{/user/deleteForm}">Clean Form</a>-->
+        <div class="findAll border border-primary rounded" style="padding: 2rem;margin: 1rem">
             <div class="req-findAll">
                 <form th:action="@{/user/findAll}" method="post">
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Find All Users</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control-plaintext" id="staticEmail"
-                                   value="Not allowed args here." readonly>
+                        <div class="col-sm-8 mb-2">
+                            <input type="text" class="form-control" id="staticEmail" value="Not allowed args here."
+                                   readonly>
                         </div>
-                        <div class="col-sm-2">
-                            <button type="submit" class="btn btn-primary mb-2">Query All</button>
+                        <div class="col-sm-2 mb-2">
+                            <button type="submit" class="btn btn-primary btn-block">Query All</button>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="resp-findAll" id="respFindAll">
-                <div th:each="item : ${list}">
-                    <p><a th:text="${{item.id}}"></a></p>
-                    <p><a th:text="${{item.name}}"></a></p>
-                    <p><a th:text="${{item.sex}}"></a></p>
-                    <hr>
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Sex</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="resp" data-th-each="item : ${list}">
+                        <td data-th-text="${{item.id}}"></td>
+                        <td data-th-text="${{item.name}}"></td>
+                        <td data-th-text="${{item.sex}}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="queryByName border border-primary rounded" style="padding: 2rem;margin: 1rem">
+            <div class="req-queryByName">
+                <form th:action="@{/user/queryUserByName}" method="post">
+                    <div class="form-group row">
+                        <label for="queryByName" class="col-sm-2 col-form-label">Find User By Name</label>
+                        <div class="col-sm-8 mb-2">
+                            <input type="text" class="form-control" id="queryByName" name="name" required
+                                   placeholder="Input name here!">
+                        </div>
+                        <div class="col-sm-2 mb-2">
+                            <button type="submit" class="btn btn-primary mb-2 btn-block">Query User</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="resp-queryByName" id="respQueryByName">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Sex</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="resp" data-th-each="items : ${respQueryByName}">
+                        <td data-th-text="${{items.id}}"></td>
+                        <td data-th-text="${{items.name}}"></td>
+                        <td data-th-text="${{items.sex}}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="insertUser border border-primary rounded" style="padding: 2rem;margin: 1rem">
+            <div class="req-queryById">
+                <form th:action="@{/user/insertUser}" method="post">
+                    <div class="row">
+                        <label for="queryById" class="col-sm-2 col-form-label">Insert User</label>
+                        <div class="input-group mb-4 col-sm-6 col-md-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-user-name">Username</span>
+                            </div>
+                            <input type="text" class="form-control" id="queryById" aria-label="Default" name="name" required>
+                        </div>
+                        <div class="input-group mb-2 col-sm-2 ">
+                            <label for="sex-select"></label>
+                            <div>
+                                <select class="custom-select justify-content-between" id="sex-select" name="sex">
+                                    <option selected value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 mb-2">
+                            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="resp-InsertUser" id="respInsertUser">
+                <div class="alert alert-primary" th:text="${insertText}">
                 </div>
             </div>
-
         </div>
+        <div class="deleteById border border-primary rounded" style="padding: 2rem;margin: 1rem">
+            <div class="req-deleteUserById">
+                <form th:action="@{/user/deleteUserById}" method="post">
+                    <div class="form-group row">
+                        <label for="deleteUserById" class="col-sm-2 col-form-label">Delete User</label>
+                        <div class="col-sm-8 mb-2">
+                            <input type="text" class="form-control" id="deleteUserById" name="id" required
+                                   placeholder="Input Id here!">
+                        </div>
+                        <div class="col-sm-2 mb-2">
+                            <button type="submit" class="btn btn-primary mb-2 btn-block">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="resp-deleteUserById" id="respDeleteUserById">
+                <div class="alert alert-primary" th:text="${deleteById}">
+                </div>
+            </div>
+        </div>
+        <div class="updateById border border-primary rounded" style="padding: 2rem;margin: 1rem">
+            <div class="req-updateById">
+                <form th:action="@{/user/updateUserById}" method="post">
+                    <div class="form-group row">
+                        <label for="updateById" class="col-sm-2 col-form-label">Update User</label>
+                        <div class="col-sm-8 mb-2">
+                            <div class="row" style="padding: 0rem 1rem">
+                                <input type="text" class="form-control col-sm-5 mb-2 mr-auto" id="updateById" name="id" required
+                                       placeholder="Input Id here!">
+                                <input type="text" class="form-control col-sm-5 mb-2" name="name" required
+                                       placeholder="Input name here!">
+                            </div>
 
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary mb-2 btn-block">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="resp-deleteUserById" id="respDeleteUserById">
+                <div class="alert alert-primary" th:text="${updateById}">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
 <script src="/static/javascirpt/jquery.min.js"></script>
+<script src="/static/javascirpt/popper.min.js"></script>
+<script src="/static/javascirpt/bootstrap.js"></script>
+<script src="/static/javascirpt/bootstrap.bundle.js"></script>
 <script src="/static/javascirpt/crud.js"></script>
 </body>
 </html>

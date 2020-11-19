@@ -1,6 +1,5 @@
 package com.kaciry.controller;
 
-import com.kaciry.entity.User;
 import com.kaciry.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,40 +14,56 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
+    //不能只new一个ModelAndView对象
+    //private ModelAndView modelAndView = new ModelAndView("index");
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("queryUserById/{id}")
+    @PostMapping("queryUserByName")
     @ResponseBody
-    public User queryUserById(@PathVariable Integer id) {
-        return userService.queryUserById(id);
+    public ModelAndView queryUserById(String name) {
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("respQueryByName", userService.queryUserById(name));
+        return modelAndView;
     }
 
     @PostMapping("findAll")
     @ResponseBody
     public ModelAndView findAll() {
-        ModelAndView mav = new ModelAndView("index");
-        mav.addObject("list", userService.findAll());
-        return mav;
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("list", userService.findAll());
+        return modelAndView;
     }
 
-    @GetMapping("insertUser/{name}/{sex}")
+    @PostMapping("insertUser")
     @ResponseBody
-    public boolean insertUserInfo(@PathVariable String name, @PathVariable String sex) {
-        return userService.insertUserInfo(name, sex);
+    public ModelAndView insertUserInfo(String name, String sex) {
+        ModelAndView modelAndView = new ModelAndView("index");
+        if (userService.insertUserInfo(name, sex)) {
+            modelAndView.addObject("insertFlag", true);
+            modelAndView.addObject("insertText", "Insert Successful!");
+        } else {
+            modelAndView.addObject("insertFlag", false);
+            modelAndView.addObject("insertText", "Insert Error!");
+        }
+        return modelAndView;
     }
 
-    @GetMapping("deleteUserById/{id}")
+    @PostMapping("deleteUserById")
     @ResponseBody
-    public boolean deleteUserById(@PathVariable Integer id) {
-        return userService.deleteUserById(id);
+    public ModelAndView deleteUserById(Integer id) {
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("deleteById", userService.deleteUserById(id));
+        return modelAndView;
     }
 
-    @GetMapping("updateUserById/{id}/{name}")
+    @PostMapping("updateUserById")
     @ResponseBody
-    public boolean deleteUserById(@PathVariable Integer id,@PathVariable String name) {
-        return userService.updateUserInfo(id,name);
+    public ModelAndView deleteUserById(Integer id,String name) {
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("updateById", userService.updateUserInfo(id, name));
+        return modelAndView;
     }
 }
