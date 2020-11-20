@@ -11,7 +11,15 @@
     </resultMap>
     <!--根据name查询用户信息-->
     <select id="queryUserById" parameterType="com.kaciry.entity.User" resultType="com.kaciry.entity.User">
-        select id,name,sex from mybatis where name= #{name}
+        select id,name,sex from mybatis where
+        <choose>
+            <when test="name !=null and name!=''">
+                name= #{name}
+            </when>
+            <otherwise>
+                name = ''
+            </otherwise>
+        </choose>
     </select>
     <!--查询所有用户信息-->
     <select id="findAll" parameterType="com.kaciry.entity.User" resultType="com.kaciry.entity.User">
@@ -21,7 +29,14 @@
     </select>
     <!--添加用户信息-->
     <insert id="insertUserInfo" parameterType="com.kaciry.entity.User">
-        insert into mybatis(name,sex) values (#{name},#{sex})
+            <choose>
+                <when test="name !=null and name !='' and sex != null and sex !=''">
+                    insert into mybatis(name,sex) values (#{name},#{sex})
+                </when>
+                <otherwise>
+                    SELECT 1 FROM MYBATIS WHERE ROWNUM <![CDATA[<=]]> 1
+                </otherwise>
+            </choose>
     </insert>
     <!--根据id删除用户信息-->
     <delete id="deleteUserById" parameterType="com.kaciry.entity.User">

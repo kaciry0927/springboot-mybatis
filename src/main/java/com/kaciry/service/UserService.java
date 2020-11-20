@@ -17,7 +17,7 @@ public interface UserService {
      * @description
      * @date 2020/11/18 11:37
      **/
-    User queryUserById(String name);
+    List<User>  queryUserById(String name);
 
     /**
      * @author kaciry

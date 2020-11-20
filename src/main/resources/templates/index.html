@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SpringBoot-Mybatis</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.18.0/bootstrap-table.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <style>
+        .hidden{display:none;}
+    </style>
 </head>
 <body>
 <header class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
@@ -33,12 +37,12 @@
 <div class="container-fluid">
     <div class="container">
         <div class="mt-4"></div>
-        <button type="button" class="btn btn-block btn-lg btn-primary mb-3" onclick="clearForm()">CLEAN FORM</button>
-        <!--        <a type="button" class="btn btn-block btn-lg btn-primary" th:href="@{/}">Clean Form</a>-->
-        <!--        <a type="button" class="btn btn-block btn-lg btn-primary" th:href="@{/user/deleteForm}">Clean Form</a>-->
+        <!--        <button type="button" class="btn btn-block btn-lg btn-primary mb-3" onclick="clearForm()">CLEAN FORM</button>-->
+        <a type="button" class="btn btn-block btn-lg btn-primary" th:href="@{/}">Clean Form</a>
+        <!--                <a type="button" class="btn btn-block btn-lg btn-primary" th:href="@{/user/deleteForm}">Clean Form</a>-->
         <div class="findAll border border-primary rounded" style="padding: 2rem;margin: 1rem">
             <div class="req-findAll">
-                <form th:action="@{/user/findAll}" method="post">
+                <form th:action="@{/}" method="get">
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Find All Users</label>
                         <div class="col-sm-8 mb-2">
@@ -46,27 +50,13 @@
                                    readonly>
                         </div>
                         <div class="col-sm-2 mb-2">
-                            <button type="submit" class="btn btn-primary btn-block">Query All</button>
+                            <button type="submit" class="btn btn-primary btn-block">Refresh</button>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="resp-findAll" id="respFindAll">
-                <table class="table table-bordered">
-                    <thead class="thead-light">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Sex</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="resp" data-th-each="item : ${list}">
-                        <td data-th-text="${{item.id}}"></td>
-                        <td data-th-text="${{item.name}}"></td>
-                        <td data-th-text="${{item.sex}}"></td>
-                    </tr>
-                    </tbody>
+                <table>
                 </table>
             </div>
         </div>
@@ -113,7 +103,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-user-name">Username</span>
                             </div>
-                            <input type="text" class="form-control" id="queryById" aria-label="Default" name="name" required>
+                            <input type="text" class="form-control" id="queryById" aria-label="Default" name="name"
+                                   required>
                         </div>
                         <div class="input-group mb-2 col-sm-2 ">
                             <label for="sex-select"></label>
@@ -163,7 +154,8 @@
                         <label for="updateById" class="col-sm-2 col-form-label">Update User</label>
                         <div class="col-sm-8 mb-2">
                             <div class="row" style="padding: 0rem 1rem">
-                                <input type="text" class="form-control col-sm-5 mb-2 mr-auto" id="updateById" name="id" required
+                                <input type="text" class="form-control col-sm-5 mb-2 mr-auto" id="updateById" name="id"
+                                       required
                                        placeholder="Input Id here!">
                                 <input type="text" class="form-control col-sm-5 mb-2" name="name" required
                                        placeholder="Input name here!">
@@ -185,9 +177,40 @@
 </div>
 <script src="/static/javascirpt/jquery.min.js"></script>
 <script src="/static/javascirpt/popper.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.18.0/bootstrap-table.js"></script>
 <script src="/static/javascirpt/bootstrap.js"></script>
 <script src="/static/javascirpt/bootstrap.bundle.js"></script>
 <script src="/static/javascirpt/crud.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#respFindAll table").bootstrapTable({
+            url:"/user/findAll",  //请求地址
+            method:"post",
+            striped : true, //是否显示行间隔色
+            pageNumber : 1, //初始化加载第一页
+            pagination : true,//是否分页
+            sidePagination : 'client',//server:服务器端分页|client：前端分页
+            pageSize : 5,//单页记录数
+            //前面有空格，目的是修改class，原生的为左右浮动，然后在style里让hidden的display为none。
+            paginationDetailHAlign:' hidden',
+            //showRefresh : true,//刷新按钮
+            sortClass: 'id',
+            columns : [ {
+                title : 'id',
+                field : 'id',
+                sortable : true
+            }, {
+                title : '姓名',
+                field : 'name',
+                sortable : false
+            }, {
+                title : '性别',
+                field : 'sex',
+                sortable : false
+            }]
+        })
+    });
+</script>
 </body>
 </html>
 

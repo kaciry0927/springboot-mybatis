@@ -1,9 +1,16 @@
 package com.kaciry.controller;
 
+import com.kaciry.entity.User;
 import com.kaciry.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author kaciry
@@ -31,10 +38,16 @@ public class UserController {
 
     @PostMapping("findAll")
     @ResponseBody
-    public ModelAndView findAll() {
-        ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("list", userService.findAll());
-        return modelAndView;
+    public Map findAll() {
+//        ModelAndView modelAndView = new ModelAndView("index");
+//        modelAndView.addObject("page", userService.findAll());
+//        return modelAndView;
+        List<User> users = userService.findAll();
+        Map<String,Object> map = new HashMap<>();
+        map.put("total",users.size());
+        map.put("rows",users);
+        return map;
+
     }
 
     @PostMapping("insertUser")

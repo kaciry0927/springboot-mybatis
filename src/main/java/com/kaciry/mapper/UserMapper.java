@@ -21,7 +21,7 @@ public interface UserMapper {
      * @description
      * @date 2020/11/18 11:40
      **/
-    User queryUserById(String name);
+    List<User>  queryUserById(String name);
 
     /**
      * @author kaciry

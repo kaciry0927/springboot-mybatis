@@ -21,14 +21,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User queryUserById(String name) {
-        if (name != null) {
-            User user = userMapper.queryUserById(name);
-            return user == null ? new User(0, "NULL", "NULL") : user;
-        } else {
-            return new User(0, "NULL", "NULL");
-        }
-
+    public List<User> queryUserById(String name) {
+        return userMapper.queryUserById(name);
     }
 
     @Override
