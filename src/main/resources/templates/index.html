@@ -21,11 +21,8 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="http://127.0.0.1:8080/druid/index.html" target="_blank">Druid state</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -37,10 +34,10 @@
 <div class="container-fluid">
     <div class="container">
         <div class="mt-4"></div>
-        <!--        <button type="button" class="btn btn-block btn-lg btn-primary mb-3" onclick="clearForm()">CLEAN FORM</button>-->
+        <!--<button type="button" class="btn btn-block btn-lg btn-primary mb-3" onclick="clearForm()">CLEAN FORM</button>-->
         <a type="button" class="btn btn-block btn-lg btn-primary" th:href="@{/}">Clean Form</a>
-        <!--                <a type="button" class="btn btn-block btn-lg btn-primary" th:href="@{/user/deleteForm}">Clean Form</a>-->
-        <div class="findAll border border-primary rounded" style="padding: 2rem;margin: 1rem">
+        <!--<a type="button" class="btn btn-block btn-lg btn-primary" th:href="@{/user/deleteForm}">Clean Form</a>-->
+        <div class="findAll border border-primary rounded card-body mt-3" >
             <div class="req-findAll">
                 <form th:action="@{/}" method="get">
                     <div class="form-group row">
@@ -60,7 +57,7 @@
                 </table>
             </div>
         </div>
-        <div class="queryByName border border-primary rounded" style="padding: 2rem;margin: 1rem">
+        <div class="queryByName border border-primary rounded card-body mt-3">
             <div class="req-queryByName">
                 <form th:action="@{/user/queryUserByName}" method="post">
                     <div class="form-group row">
@@ -94,7 +91,7 @@
                 </table>
             </div>
         </div>
-        <div class="insertUser border border-primary rounded" style="padding: 2rem;margin: 1rem">
+        <div class="insertUser border border-primary rounded card-body mt-3" >
             <div class="req-queryById">
                 <form th:action="@{/user/insertUser}" method="post">
                     <div class="row">
@@ -127,7 +124,7 @@
                 </div>
             </div>
         </div>
-        <div class="deleteById border border-primary rounded" style="padding: 2rem;margin: 1rem">
+        <div class="deleteById border border-primary rounded card-body mt-3" >
             <div class="req-deleteUserById">
                 <form th:action="@{/user/deleteUserById}" method="post">
                     <div class="form-group row">
@@ -147,7 +144,7 @@
                 </div>
             </div>
         </div>
-        <div class="updateById border border-primary rounded" style="padding: 2rem;margin: 1rem">
+        <div class="updateById border border-primary rounded card-body mt-3" >
             <div class="req-updateById">
                 <form th:action="@{/user/updateUserById}" method="post">
                     <div class="form-group row">
