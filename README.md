@@ -13,4 +13,4 @@
    - spring.datasource.url=jdbc:oracle:thin:@localhost:1521:ORACLEDB
    - spring.datasource.username=(your database name)
    - spring.datasource.password=(your database pwd)
-- Import `mybatis.sql` to your database.
+- Import `mybatis_oracle.sql` to your database.
