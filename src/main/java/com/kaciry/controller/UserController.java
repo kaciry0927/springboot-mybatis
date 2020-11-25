@@ -1,61 +1,62 @@
 package com.kaciry.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.kaciry.entity.User;
 import com.kaciry.service.UserService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author kaciry
  * @date 2020/11/18 11:41
- * @description
+ * @description UserController
  */
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
-    private final UserService userService;
+
     //不能只new一个ModelAndView对象
     //private ModelAndView modelAndView = new ModelAndView("index");
+
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping("queryUserByName")
-    @ResponseBody
     public List<User> queryUserById(String name) {
-//        ModelAndView modelAndView = new ModelAndView("index");
-//        modelAndView.addObject("respQueryByName", userService.queryUserById(name));
-//        List<User> users = userService.queryUserById(name);
-//        Map<String,Object> map = new HashMap<>();
-//        map.put("total",users.size());
-//        map.put("rows",users);
+        //ModelAndView modelAndView = new ModelAndView("index");
+        //modelAndView.addObject("respQueryByName", userService.queryUserById(name));
+        //List<User> users = userService.queryUserById(name);
+        //Map<String,Object> map = new HashMap<>();
+        //map.put("total",users.size());
+        //map.put("rows",users);
         return userService.queryUserById(name);
     }
 
     @PostMapping("findAll")
-    @ResponseBody
-    public Map findAll() {
-//        ModelAndView modelAndView = new ModelAndView("index");
-//        modelAndView.addObject("page", userService.findAll());
-//        return modelAndView;
+    public JSONObject findAll() {
+        JSONObject jsonObject = new JSONObject();
         List<User> users = userService.findAll();
-        Map<String,Object> map = new HashMap<>();
-        map.put("total",users.size());
-        map.put("rows",users);
-        return map;
-
+        //Map<String, Object> map = new HashMap<>();
+        jsonObject.put("total", users.size());
+        jsonObject.put("rows", users);
+        //map.put("total", users.size());
+        //map.put("rows", users);
+        //String str = jsonObject.toJSONString();
+        //System.out.println(str);
+        //String str2 = JSONObject.toJSONString(jsonObject,false);
+        //System.out.println(str2);
+        //return JSONObject.toJSONString(jsonObject,false);
+        return jsonObject;
     }
 
     @PostMapping("insertUser")
-    @ResponseBody
     public ModelAndView insertUserInfo(String name, String sex) {
         ModelAndView modelAndView = new ModelAndView("index");
         if (userService.insertUserInfo(name, sex)) {
@@ -69,7 +70,6 @@ public class UserController {
     }
 
     @PostMapping("deleteUserById")
-    @ResponseBody
     public ModelAndView deleteUserById(Integer id) {
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("deleteById", userService.deleteUserById(id));
@@ -77,8 +77,7 @@ public class UserController {
     }
 
     @PostMapping("updateUserById")
-    @ResponseBody
-    public ModelAndView deleteUserById(Integer id,String name) {
+    public ModelAndView deleteUserById(Integer id, String name) {
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("updateById", userService.updateUserInfo(id, name));
         return modelAndView;

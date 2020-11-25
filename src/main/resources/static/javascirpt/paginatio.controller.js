@@ -11,6 +11,13 @@ $(document).ready(function () {
         paginationDetailHAlign: ' hidden',
         //showRefresh : true,//刷新按钮
         sortClass: 'id',
+        //queryParams: function (params) {//自定义参数，这里的参数是传给后台的，我这是是分页用的
+        //    return {//这里的params是table提供的
+        //        pageNum: (params.offset / params.limit) + 1,//从数据库第几条记录开始
+        //        pageSize: params.limit//找多少条
+        //
+        //    };
+        //},
         columns: [{
             title: 'id',
             field: 'id',
@@ -31,6 +38,26 @@ $(document).ready(function () {
     initTable("respQueryByNameId");
     return false;
 });
+
+function ajaxSearchByName() {
+    $.ajax({
+        url: '/user/queryUserByName',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        data: {
+            name: $("#search").val()
+        },
+        error: function () {
+            console.error("服务器未响应");
+        },
+        success: function (result) {
+            $("#dataTable").bootstrapTable('destroy');
+            initTable("respQueryByNameId");
+            $('#respQueryByNameId').bootstrapTable('load', result);
+        }
+    });
+    return false;
+}
 
 function ajaxRequestByName() {
     $.ajax({
@@ -61,6 +88,7 @@ function initTable(tableId) {
         pagination: "true",
         pageSize: 5,
         sortClass: 'id',
+        undefinedText: "空",
         paginationDetailHAlign: ' hidden',
         columns: [{
             title: 'id',
