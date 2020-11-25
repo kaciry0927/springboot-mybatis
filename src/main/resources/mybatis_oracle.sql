@@ -1,5 +1,5 @@
 prompt PL/SQL Developer Export Tables for user SCOTT@ORACLEDB
-prompt Created by Administrator on 2020年11月20日
+prompt Created by Administrator on 2020年11月25日
 set feedback off
 set define off
 
@@ -37,18 +37,18 @@ alter table MYBATIS
   );
 alter table MYBATIS
   add check ( sex in ('男','女'));
+alter table MYBATIS
+  add check ( sex in ('男','女'));
 
 prompt Disabling triggers for MYBATIS...
 alter table MYBATIS disable all triggers;
 prompt Loading MYBATIS...
 insert into MYBATIS (id, name, sex)
+values (100038, 'test', '男');
+insert into MYBATIS (id, name, sex)
 values (100001, 'user0001', '女');
 insert into MYBATIS (id, name, sex)
 values (100002, 'user003', '男');
-insert into MYBATIS (id, name, sex)
-values (100021, '憨憨', '女');
-insert into MYBATIS (id, name, sex)
-values (100015, '小覃', '女');
 insert into MYBATIS (id, name, sex)
 values (100022, 'user', '男');
 insert into MYBATIS (id, name, sex)
@@ -83,6 +83,8 @@ insert into MYBATIS (id, name, sex)
 values (100020, 'user0003', '男');
 insert into MYBATIS (id, name, sex)
 values (100018, 'user0001', '男');
+insert into MYBATIS (id, name, sex)
+values (100035, 'user0001', '女');
 commit;
 prompt 21 records loaded
 prompt Enabling triggers for MYBATIS...

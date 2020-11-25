@@ -30,10 +30,14 @@ public class UserController {
 
     @PostMapping("queryUserByName")
     @ResponseBody
-    public ModelAndView queryUserById(String name) {
-        ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("respQueryByName", userService.queryUserById(name));
-        return modelAndView;
+    public List<User> queryUserById(String name) {
+//        ModelAndView modelAndView = new ModelAndView("index");
+//        modelAndView.addObject("respQueryByName", userService.queryUserById(name));
+//        List<User> users = userService.queryUserById(name);
+//        Map<String,Object> map = new HashMap<>();
+//        map.put("total",users.size());
+//        map.put("rows",users);
+        return userService.queryUserById(name);
     }
 
     @PostMapping("findAll")

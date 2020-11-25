@@ -8,7 +8,9 @@
     <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.18.0/bootstrap-table.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/bootstrap.css">
     <style>
-        .hidden{display:none;}
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -37,7 +39,7 @@
         <!--<button type="button" class="btn btn-block btn-lg btn-primary mb-3" onclick="clearForm()">CLEAN FORM</button>-->
         <a type="button" class="btn btn-block btn-lg btn-primary" th:href="@{/}">Clean Form</a>
         <!--<a type="button" class="btn btn-block btn-lg btn-primary" th:href="@{/user/deleteForm}">Clean Form</a>-->
-        <div class="findAll border border-primary rounded card-body mt-3" >
+        <div class="findAll border border-primary rounded card-body mt-3">
             <div class="req-findAll">
                 <form th:action="@{/}" method="get">
                     <div class="form-group row">
@@ -59,7 +61,7 @@
         </div>
         <div class="queryByName border border-primary rounded card-body mt-3">
             <div class="req-queryByName">
-                <form th:action="@{/user/queryUserByName}" method="post">
+                <form>
                     <div class="form-group row">
                         <label for="queryByName" class="col-sm-2 col-form-label">Find User By Name</label>
                         <div class="col-sm-8 mb-2">
@@ -67,31 +69,18 @@
                                    placeholder="Input name here!">
                         </div>
                         <div class="col-sm-2 mb-2">
-                            <button type="submit" class="btn btn-primary mb-2 btn-block">Query User</button>
+                            <button  class="btn btn-primary mb-2 btn-block " onclick="return ajaxRequestByName()">Query User
+                            </button>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="resp-queryByName" id="respQueryByName">
-                <table class="table table-bordered">
-                    <thead class="thead-light">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Sex</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="resp" data-th-each="items : ${respQueryByName}">
-                        <td data-th-text="${{items.id}}"></td>
-                        <td data-th-text="${{items.name}}"></td>
-                        <td data-th-text="${{items.sex}}"></td>
-                    </tr>
-                    </tbody>
+                <table id="respQueryByNameId">
                 </table>
             </div>
         </div>
-        <div class="insertUser border border-primary rounded card-body mt-3" >
+        <div class="insertUser border border-primary rounded card-body mt-3">
             <div class="req-queryById">
                 <form th:action="@{/user/insertUser}" method="post">
                     <div class="row">
@@ -124,7 +113,7 @@
                 </div>
             </div>
         </div>
-        <div class="deleteById border border-primary rounded card-body mt-3" >
+        <div class="deleteById border border-primary rounded card-body mt-3">
             <div class="req-deleteUserById">
                 <form th:action="@{/user/deleteUserById}" method="post">
                     <div class="form-group row">
@@ -144,7 +133,7 @@
                 </div>
             </div>
         </div>
-        <div class="updateById border border-primary rounded card-body mt-3" >
+        <div class="updateById border border-primary rounded card-body mt-3">
             <div class="req-updateById">
                 <form th:action="@{/user/updateUserById}" method="post">
                     <div class="form-group row">
@@ -174,40 +163,10 @@
 </div>
 <script src="/static/javascirpt/jquery.min.js"></script>
 <script src="/static/javascirpt/popper.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.18.0/bootstrap-table.js"></script>
+<script src="/static/javascirpt/bootstrap-table.js"></script>
 <script src="/static/javascirpt/bootstrap.js"></script>
 <script src="/static/javascirpt/bootstrap.bundle.js"></script>
 <script src="/static/javascirpt/crud.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#respFindAll table").bootstrapTable({
-            url:"/user/findAll",  //请求地址
-            method:"post",
-            striped : true, //是否显示行间隔色
-            pageNumber : 1, //初始化加载第一页
-            pagination : true,//是否分页
-            sidePagination : 'client',//server:服务器端分页|client：前端分页
-            pageSize : 5,//单页记录数
-            //前面有空格，目的是修改class，原生的为左右浮动，然后在style里让hidden的display为none。
-            paginationDetailHAlign:' hidden',
-            //showRefresh : true,//刷新按钮
-            sortClass: 'id',
-            columns : [ {
-                title : 'id',
-                field : 'id',
-                sortable : true
-            }, {
-                title : '姓名',
-                field : 'name',
-                sortable : false
-            }, {
-                title : '性别',
-                field : 'sex',
-                sortable : false
-            }]
-        })
-    });
-</script>
 </body>
 </html>
 

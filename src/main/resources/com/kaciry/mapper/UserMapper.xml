@@ -14,10 +14,10 @@
         select id,name,sex from mybatis where
         <choose>
             <when test="name !=null and name!=''">
-                name= #{name}
+                name like '%'|| #{name} || '%'
             </when>
             <otherwise>
-                name = ''
+                1=2
             </otherwise>
         </choose>
     </select>
